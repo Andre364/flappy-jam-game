@@ -26,6 +26,13 @@ public class PipeManager : MonoBehaviour
         hasPipeLoaded = true;
     }
 
+    public void LoadNewPipe()
+    {
+        //TODO: Pipe management (ammo etc.)
+
+        anim.SetTrigger("load");
+    }
+
     private void Update()
     {
         if (isUsingMouseAsInput)
