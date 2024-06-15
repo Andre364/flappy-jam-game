@@ -18,12 +18,14 @@ public class PipeManager : MonoBehaviour
     [SerializeField] int currentPipes;
     public int maxPipesStored; //Including the pipe currently in use
     public float pipeGainInterval;
+    bool isReloadTime;
 
     private void Start()
     {
         hasPipeLoaded = false;
         anim = GetComponent<Animator>();
         Cursor.visible = false;
+        isReloadTime = true;
 
         currentPipes = startingPipes;
         StartCoroutine("RefillPipes");
@@ -31,7 +33,7 @@ public class PipeManager : MonoBehaviour
 
     IEnumerator RefillPipes()
     {
-        while (true)
+        while (isReloadTime)
         {
             if (currentPipes < maxPipesStored)
             {
@@ -129,13 +131,13 @@ public class PipeManager : MonoBehaviour
 
         //TODO: make Y pos smoother
 
-        float newY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+        //float newY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
 
-        newY *= Time.deltaTime * 15;
+        //newY *= Time.deltaTime * 15;
 
-        newY = Mathf.Clamp(newY, -0.5f, 0.5f);
+        //newY = Mathf.Clamp(newY, -0.5f, 0.5f);
 
-        Vector2 newPos = new Vector2(newX, newY);
+        Vector2 newPos = new Vector2(newX, 0);
         transform.position = newPos;
     }
 }
