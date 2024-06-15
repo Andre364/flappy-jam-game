@@ -13,11 +13,36 @@ public class PipeManager : MonoBehaviour
 
     bool hasPipeLoaded;
 
+    [Header("Pipe Ammo")]
+    public int startingPipes;
+    [SerializeField] int currentPipes;
+    public int maxPipesStored; //Including the pipe currently in use
+    public float pipeGainInterval;
+
     private void Start()
     {
         hasPipeLoaded = false;
         anim = GetComponent<Animator>();
         Cursor.visible = false;
+
+        currentPipes = startingPipes;
+        StartCoroutine("RefillPipes");
+    }
+
+    IEnumerator RefillPipes()
+    {
+        while (true)
+        {
+            if (currentPipes < maxPipesStored)
+            {
+                yield return new WaitForSeconds(pipeGainInterval);
+                currentPipes++;
+                if (currentPipes == 1)
+                {
+                    LoadNewPipe();
+                }
+            }
+        }
     }
 
     public void PipeLoaded()
@@ -40,7 +65,7 @@ public class PipeManager : MonoBehaviour
         else
             MovePipeUsingDir();
 
-        if (Input.GetKey(KeyCode.Space) && hasPipeLoaded)
+        if (Input.GetKey(KeyCode.Mouse0) && hasPipeLoaded && currentPipes > 0)
             StartShootAnim();
     }
 
@@ -58,6 +83,8 @@ public class PipeManager : MonoBehaviour
             Destroy(bird);
         }
         birdsInRange.Clear();
+
+        currentPipes--;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -104,7 +131,7 @@ public class PipeManager : MonoBehaviour
 
         float newY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
 
-        newY *= Time.deltaTime * 5;
+        newY *= Time.deltaTime * 15;
 
         newY = Mathf.Clamp(newY, -0.5f, 0.5f);
 

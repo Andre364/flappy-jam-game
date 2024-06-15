@@ -576,7 +576,7 @@ Camera:
     x: 0
     y: 0
     width: 1
-    height: 0.9996547
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
@@ -672,6 +672,10 @@ MonoBehaviour:
   birdLayer:
     serializedVersion: 2
     m_Bits: 8
+  startingPipes: 4
+  currentPipes: 0
+  maxPipesStored: 5
+  pipeGainInterval: 2
 --- !u!4 &536052510
 Transform:
   m_ObjectHideFlags: 0
