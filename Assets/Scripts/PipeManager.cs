@@ -42,9 +42,12 @@ public class PipeManager : MonoBehaviour
                 if (currentPipes == 1)
                 {
                     LoadNewPipe();
+                    yield return null;
                 }
             }
+            yield return null;
         }
+        yield return null;
     }
 
     public void PipeLoaded()
