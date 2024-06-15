@@ -9,27 +9,43 @@ public class Bird : MonoBehaviour
     Rigidbody2D rb;
     public BirdManager bm;
 
+    public bool isFacingRight;
     bool hasFinished = false;
+
+    public SpriteRenderer sprite;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (!isFacingRight)
+        {
+            sprite.flipX = true;
+        }
     }
 
     private void FixedUpdate()
     {
-        //rb.MovePosition(goalPos * moveSpeed * Time.deltaTime);
-        rb.AddForce(goalPos * moveSpeed * 15f * Time.deltaTime, ForceMode2D.Force);
+        rb.AddForce(goalPos * moveSpeed * 12f * Time.deltaTime, ForceMode2D.Force);
         if (rb.velocity.x > moveSpeed)
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+        else if (rb.velocity.x < -moveSpeed)
+            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
     }
 
     private void Update()
     {
-        if (transform.position.x >= goalPos.x && !hasFinished)
+        if (!hasFinished)
         {
-            hasFinished = true;
-            bm.RemoveHealth(gameObject);
+            if (isFacingRight && transform.position.x >= goalPos.x)
+            {
+                hasFinished = true;
+                bm.RemoveHealth(gameObject);
+            }
+            else if (!isFacingRight && transform.position.x <= goalPos.x)
+            {
+                hasFinished = true;
+                bm.RemoveHealth(gameObject);
+            }
         }
     }
 }

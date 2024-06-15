@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PipeManager : MonoBehaviour
@@ -15,7 +16,8 @@ public class PipeManager : MonoBehaviour
 
     [Header("Pipe Ammo")]
     public int startingPipes;
-    [SerializeField] int currentPipes;
+    int currentPipes;
+    public TextMeshProUGUI pipeDisplay;
     public int maxPipesStored; //Including the pipe currently in use
     public float pipeGainInterval;
     bool isReloadTime;
@@ -72,6 +74,7 @@ public class PipeManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Mouse0) && hasPipeLoaded && currentPipes > 0)
             StartShootAnim();
+        pipeDisplay.SetText(currentPipes.ToString());
     }
 
     void StartShootAnim()

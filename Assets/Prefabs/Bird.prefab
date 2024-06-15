@@ -326,6 +326,8 @@ MonoBehaviour:
   moveSpeed: 1
   goalPos: {x: 0, y: 0}
   bm: {fileID: 0}
+  isFacingRight: 0
+  sprite: {fileID: 2115084787028533834}
 --- !u!58 &5759187471994287988
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -383,7 +385,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
