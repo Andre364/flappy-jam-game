@@ -14,6 +14,8 @@ public class BirdManager : MonoBehaviour
 
     public float birdDefaultSpeed;
 
+    public DataCollector dataCollector;
+
     private void Start()
     {
         StartCoroutine("BirdSpawner");

@@ -648,6 +648,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379701780}
   m_CullTransparentMesh: 1
+--- !u!1 &400920607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400920609}
+  - component: {fileID: 400920608}
+  m_Layer: 0
+  m_Name: DataCollector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &400920608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400920607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0920994c26bc0448bce2111ea74973a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timesSmashed: 0
+  birdsKilled: 0
+  heartsCollected: 0
+  timeAlive: 0
+--- !u!4 &400920609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400920607}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3965155, y: 0.35771373, z: 0.06368585}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &416187106
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1061,7 @@ MonoBehaviour:
   reloadSound: {fileID: 924960169}
   bm: {fileID: 1905527561}
   heart: {fileID: 4588126370292780510, guid: 381da4d9c29adaa48a8101a852df3700, type: 3}
+  dataCollector: {fileID: 400920608}
   startingPipes: 4
   pipeDisplay: {fileID: 715770420}
   maxPipesStored: 5
@@ -3087,6 +3136,7 @@ MonoBehaviour:
   birdGoalPos: {fileID: 788680715}
   spawnBirds: 1
   birdDefaultSpeed: 5
+  dataCollector: {fileID: 400920608}
   maxHealth: 4
   hearts:
   - {fileID: 1275852555}
@@ -3746,3 +3796,4 @@ SceneRoots:
   - {fileID: 379056984}
   - {fileID: 2060844754}
   - {fileID: 416187108}
+  - {fileID: 400920609}

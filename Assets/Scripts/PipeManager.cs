@@ -24,6 +24,8 @@ public class PipeManager : MonoBehaviour
     public GameObject heart;
     List<GameObject> heartsInRange = new List<GameObject>();
 
+    public DataCollector dataCollector;
+
     [Header("Pipe Ammo")]
     public int startingPipes;
     int currentPipes;
@@ -109,12 +111,14 @@ public class PipeManager : MonoBehaviour
                 h.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-10f, 10f));
                 h.transform.position = new Vector2(transform.position.x, transform.position.y + Random.Range(-0.25f, 0.25f));
             }
+            dataCollector.birdsKilled++;
         }
         GameObject[] heartArray = heartsInRange.ToArray();
         foreach (GameObject h in heartArray)
         {
             Destroy(h);
             bm.AddHealth();
+            dataCollector.heartsCollected++;
         }
         heartsInRange.Clear();
 
@@ -130,6 +134,8 @@ public class PipeManager : MonoBehaviour
         birdsInRange.Clear();
 
         currentPipes--;
+
+        dataCollector.timesSmashed++;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
