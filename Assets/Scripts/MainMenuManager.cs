@@ -10,7 +10,10 @@ public class MainMenuManager : MonoBehaviour
     private void Start()
     {
         isInSettings = false;
+        settingsMenu.SetActive(false);
     }
+
+    public GameObject settingsMenu;
 
     public void OpenSettings(bool open)
     {
@@ -19,10 +22,12 @@ public class MainMenuManager : MonoBehaviour
         if (open)
         {
             //open menu
+            settingsMenu.SetActive(true);
         }
         else
         {
             //close menu
+            settingsMenu.SetActive(false);
         }
     }
     private void Update()
