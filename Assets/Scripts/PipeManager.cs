@@ -20,6 +20,10 @@ public class PipeManager : MonoBehaviour
     public AudioSource smashHitSound;
     public AudioSource reloadSound;
 
+    public BirdManager bm;
+    public GameObject heart;
+    List<GameObject> heartsInRange = new List<GameObject>();
+
     [Header("Pipe Ammo")]
     public int startingPipes;
     int currentPipes;
@@ -97,7 +101,22 @@ public class PipeManager : MonoBehaviour
             Destroy(bird);
             GameObject b = Instantiate(blood);
             b.transform.position = transform.position;
+
+            float f = Random.value;
+            if (f <= 0.07f)
+            {
+                GameObject h = Instantiate(heart);
+                h.transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-10f, 10f));
+                h.transform.position = new Vector2(transform.position.x, transform.position.y + Random.Range(-0.25f, 0.25f));
+            }
         }
+        GameObject[] heartArray = heartsInRange.ToArray();
+        foreach (GameObject h in heartArray)
+        {
+            Destroy(h);
+            bm.AddHealth();
+        }
+        heartsInRange.Clear();
 
         AudioSource au;
 
@@ -120,6 +139,10 @@ public class PipeManager : MonoBehaviour
             birdsInRange.Add(other.gameObject);
             //Debug.Log(birdsInRange.Count + " birds in range");
         }
+        else if (other.gameObject.name.Contains("Heart"))
+        {
+            heartsInRange.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -128,6 +151,10 @@ public class PipeManager : MonoBehaviour
         {
             birdsInRange.Remove(other.gameObject);
             //Debug.Log(birdsInRange.Count + " birds in range");
+        }
+        else if (other.gameObject.name.Contains("Heart"))
+        {
+            heartsInRange.Remove(other.gameObject);
         }
     }
 

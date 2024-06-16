@@ -74,6 +74,15 @@ public class BirdManager : MonoBehaviour
         ChangeHealthSprite();
     }
 
+    public void AddHealth()
+    {
+        if (health < maxHealth)
+        {
+            health++;
+            ChangeHealthSprite();
+        }
+    }
+
     void ChangeHealthSprite()
     {
         for (int i = 0; i < hearts.Count; i++)
