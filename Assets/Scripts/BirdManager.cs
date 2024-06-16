@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BirdManager : MonoBehaviour
 {
@@ -11,14 +13,13 @@ public class BirdManager : MonoBehaviour
 
     public bool spawnBirds = true;
 
-    public int health;
-
-    [Header("Bird config")]
     public float birdDefaultSpeed;
 
     private void Start()
     {
         StartCoroutine("BirdSpawner");
+        health = maxHealth;
+        ChangeHealthSprite();
     }
 
     IEnumerator BirdSpawner()
@@ -62,10 +63,30 @@ public class BirdManager : MonoBehaviour
         nb.bm = this;
     }
 
+    [Header("Health")]
+    int health;
+    public int maxHealth;
+    public List<GameObject> hearts;
+
     public void RemoveHealth(GameObject attackerBird)
     {
         health--;
-        Debug.Log("Lost 1hp.. lousy ass");
         Destroy(attackerBird);
+        ChangeHealthSprite();
+    }
+
+    void ChangeHealthSprite()
+    {
+        for (int i = 0; i < hearts.Count; i++)
+        {
+            if (i + 1 <= health)
+            {
+                hearts[i].SetActive(true);
+            }
+            else
+            {
+                hearts[i].SetActive(false);
+            }
+        }
     }
 }

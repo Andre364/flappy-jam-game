@@ -36,7 +36,6 @@ public class DifficultyManager : MonoBehaviour
     {
         float minute = 1f / 60f;
         time += minute / minutesToMaxDifficulty; // Time is in minutes.
-        Debug.Log(time * minutesToMaxDifficulty + " minutes" );
         if (time <= 1)
         {
             difficulty = 1f + curve.Evaluate(time);
