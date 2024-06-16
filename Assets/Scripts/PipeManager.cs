@@ -14,6 +14,8 @@ public class PipeManager : MonoBehaviour
 
     bool hasPipeLoaded;
 
+    public GameObject blood;
+
     [Header("Pipe Ammo")]
     public int startingPipes;
     int currentPipes;
@@ -89,7 +91,10 @@ public class PipeManager : MonoBehaviour
         foreach (GameObject bird in birdArray)
         {
             Destroy(bird);
+            GameObject b = Instantiate(blood);
+            b.transform.position = transform.position;
         }
+
         birdsInRange.Clear();
 
         currentPipes--;
