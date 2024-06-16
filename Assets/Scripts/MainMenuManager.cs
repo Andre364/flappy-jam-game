@@ -11,6 +11,8 @@ public class MainMenuManager : MonoBehaviour
     {
         isInSettings = false;
         settingsMenu.SetActive(false);
+
+        Screen.fullScreen = true;
     }
 
     public GameObject settingsMenu;
@@ -34,7 +36,7 @@ public class MainMenuManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInSettings)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(1);
             SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
         }
     }
