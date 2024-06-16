@@ -16,6 +16,10 @@ public class PipeManager : MonoBehaviour
 
     public GameObject blood;
 
+    public AudioSource smashSound;
+    public AudioSource smashHitSound;
+    public AudioSource reloadSound;
+
     [Header("Pipe Ammo")]
     public int startingPipes;
     int currentPipes;
@@ -46,6 +50,8 @@ public class PipeManager : MonoBehaviour
                 if (currentPipes == 1)
                 {
                     LoadNewPipe();
+                    reloadSound.pitch = Random.Range(0.95f, 1.05f);
+                    reloadSound.Play();
                     yield return null;
                 }
             }
@@ -62,8 +68,6 @@ public class PipeManager : MonoBehaviour
 
     public void LoadNewPipe()
     {
-        //TODO: Pipe management (ammo etc.)
-
         anim.SetTrigger("load");
     }
 
@@ -95,6 +99,15 @@ public class PipeManager : MonoBehaviour
             b.transform.position = transform.position;
         }
 
+        AudioSource au;
+
+        if (birdArray.Length > 0)
+            au = smashHitSound;
+        else
+            au = smashSound;
+        au.pitch = Random.Range(0.95f, 1.05f);
+        au.Play();
+        
         birdsInRange.Clear();
 
         currentPipes--;
