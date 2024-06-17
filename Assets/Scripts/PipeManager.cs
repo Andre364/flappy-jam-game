@@ -19,6 +19,7 @@ public class PipeManager : MonoBehaviour
     public AudioSource smashSound;
     public AudioSource smashHitSound;
     public AudioSource reloadSound;
+    public AudioSource breath;
 
     public BirdManager bm;
     public GameObject heart;
@@ -113,7 +114,12 @@ public class PipeManager : MonoBehaviour
             }
             dataCollector.birdsKilled++;
         }
+
         GameObject[] heartArray = heartsInRange.ToArray();
+
+        if (heartArray.Length > 0)
+            breath.Play();
+
         foreach (GameObject h in heartArray)
         {
             Destroy(h);

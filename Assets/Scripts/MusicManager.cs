@@ -11,10 +11,12 @@ public class MusicManager : MonoBehaviour
         game.volume = 0f;
 
         DontDestroyOnLoad(gameObject);
+        isCrossfadeNow = false;
     }
 
     public AudioSource menu;
     public AudioSource game;
+    public AudioSource gameOver;
     public float vol;
 
     AudioSource auFrom;
@@ -29,6 +31,8 @@ public class MusicManager : MonoBehaviour
     public int crossFadeLoops;
     public float timeBeforeTo;
 
+    bool isCrossfadeNow;
+
     IEnumerator CrossFade(int index)
     {
         auFrom = menu;
@@ -36,8 +40,8 @@ public class MusicManager : MonoBehaviour
 
         switch (index)
         {
-            case 1: //To menu
-                auFrom = menu;
+            case 1: //To menu from game over
+                auFrom = gameOver;
                 auTo = menu;
                 break;
             case 2: //To game
@@ -46,16 +50,22 @@ public class MusicManager : MonoBehaviour
                 break;
             case 3: //To game over screen
                 auFrom = game;
-                auTo = menu;
+                auTo = gameOver;
                 break;
         }
 
         if (auTo != auFrom)
         {
+            while (isCrossfadeNow)
+            {
+                yield return new WaitForSeconds(0.1f) ;
+            }
+
+            isCrossfadeNow = true;
+
             StartCoroutine("CrossFadeFrom");
             yield return new WaitForSeconds(timeBeforeTo);
             StartCoroutine("CrossFadeTo");
-
         }
         yield return null;
     }
@@ -90,5 +100,6 @@ public class MusicManager : MonoBehaviour
             time += crossFadeDuration / crossFadeLoops;
             yield return new WaitForSeconds(crossFadeDuration / crossFadeLoops);
         }
+        isCrossfadeNow = false;
     }
 }
