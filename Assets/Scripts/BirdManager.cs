@@ -15,16 +15,14 @@ public class BirdManager : MonoBehaviour
 
     public float birdDefaultSpeed;
 
-    MusicManager mm;
+    public List<GameObject> birdsInGame;
 
     public DataCollector dataCollector;
 
     private void Start()
     {
         StartCoroutine("BirdSpawner");
-        health = maxHealth;
         ChangeHealthSprite();
-        mm = GameObject.Find("MusicManager").GetComponent<MusicManager>();
     }
 
     IEnumerator BirdSpawner()
@@ -39,6 +37,8 @@ public class BirdManager : MonoBehaviour
             yield return new WaitForSeconds(nextTimer);
         }
     }
+
+    public DifficultyManager diff;
 
     void SpawnBird()
     {
@@ -62,7 +62,11 @@ public class BirdManager : MonoBehaviour
             endP = birdSpawnPoint.position;
         }
 
+        birdsInGame.Add(newBird);
+
         newBird.transform.position = spawnP;
+        nb.acceleration = 9f * diff.difficulty * 2f;
+        nb.moveSpeed = diff.difficulty * 1.5f;
         nb.goalPos = endP;
         nb.moveSpeed = birdDefaultSpeed;
         nb.bm = this;
@@ -70,20 +74,30 @@ public class BirdManager : MonoBehaviour
 
     [Header("Health")]
     public GameObject gameOverScreen;
-    int health;
+    public int health;
     public int maxHealth;
     public List<GameObject> hearts;
 
     public void RemoveHealth(GameObject attackerBird)
     {
         health--;
+
+        birdsInGame.Remove(attackerBird);
         Destroy(attackerBird);
+        
         ChangeHealthSprite();
 
         if (health <= 0)
         {
+            GameObject[] bg = birdsInGame.ToArray();
+            foreach(GameObject bird in bg)
+            {
+                Destroy(bird);
+            }
+
+            birdsInGame.Clear();
+
             gameOverScreen.SetActive(true);
-            mm.SwitchMusic(2);
         }
     }
 

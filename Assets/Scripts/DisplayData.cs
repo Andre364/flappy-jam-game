@@ -13,10 +13,35 @@ public class DisplayData : MonoBehaviour
     {
         dc = GameObject.Find("DataCollector").GetComponent<DataCollector>();
 
-        tmp.SetText(dc.minutes + ":" + (int)dc.seconds);
-        tmp.SetText(tmp.text + "\n times smashed: " + dc.timesSmashed);
-        tmp.SetText(tmp.text + "\n birds killed: " + dc.birdsKilled);
-        tmp.SetText(tmp.text + "\n hearts collected: " + dc.heartsCollected);
-        tmp.SetText(tmp.text + "\n kill to smash ratio: " + dc.killToSmashRatio);
+        //tmp.SetText(dc.minutes + ":" + (int)dc.seconds);
+
+        string mins = dc.minutes.ToString();
+        mins += " minute" + plural(dc.minutes) + " and ";
+        if (dc.minutes == 0)
+        {
+            mins = "";
+        }
+        string secs = ((int)dc.seconds).ToString() + " second";
+        secs += plural((int)dc.seconds);
+
+        tmp.SetText("you spent " + mins + secs + " hunting... wow");
+        tmp.SetText(tmp.text + "\n you smashed " + dc.timesSmashed + " time" + plural(dc.timesSmashed));
+        tmp.SetText(tmp.text + "\n and killed " + dc.birdsKilled + " bird" + plural(dc.birdsKilled) + ".");
+        tmp.SetText(tmp.text + "\n you collected " + dc.heartsCollected + " heart" + plural(dc.heartsCollected));
+        tmp.SetText(tmp.text + "\n and each smash amounted to " + dc.killToSmashRatio + " dead birds");
+
+        Destroy(dc.gameObject);
+    }
+
+    string plural(int i)
+    {
+        if (i != 1)
+        {
+            return "s";
+        }
+        else
+        {
+            return "";
+        }
     }
 }

@@ -84,7 +84,7 @@ public class PipeManager : MonoBehaviour
         else
             MovePipeUsingDir();
 
-        if (Input.GetKey(KeyCode.Mouse0) && hasPipeLoaded && currentPipes > 0)
+        if (Input.GetKey(KeyCode.Mouse0) && hasPipeLoaded && currentPipes > 0 && bm.health > 0)
             StartShootAnim();
         pipeDisplay.SetText(currentPipes.ToString());
     }

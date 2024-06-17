@@ -13,6 +13,7 @@ public class Bird : MonoBehaviour
     bool hasFinished = false;
 
     public SpriteRenderer sprite;
+    public float acceleration;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class Bird : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(goalPos * moveSpeed * 12f * Time.deltaTime, ForceMode2D.Force);
+        rb.AddForce(goalPos * moveSpeed * acceleration * Time.deltaTime, ForceMode2D.Force);
         if (rb.velocity.x > moveSpeed)
             rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
         else if (rb.velocity.x < -moveSpeed)

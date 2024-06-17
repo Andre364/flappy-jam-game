@@ -7,61 +7,88 @@ public class MusicManager : MonoBehaviour
 {
     void Start()
     {
+        game.Stop();
+        game.volume = 0f;
+
         DontDestroyOnLoad(gameObject);
-        menu.volume = vol;
-        game.volume = 0;
     }
 
     public AudioSource menu;
     public AudioSource game;
     public float vol;
 
+    AudioSource auFrom;
+    AudioSource auTo;
+
     public void SwitchMusic(int index)
     {
-        if (index == 0 || index == 2)
-        {
-            StartCoroutine("CrossFade", menu);
-        }
-        else if (index == 1)
-        {
-            StartCoroutine("CrossFade", game);
-            //menu.volume = 0;
-            //game.volume = vol;
-        }
+        StartCoroutine("CrossFade", index);
     }
 
     public float crossFadeDuration;
     public int crossFadeLoops;
+    public float timeBeforeTo;
 
-    IEnumerator CrossFade(AudioSource auTo)
+    IEnumerator CrossFade(int index)
     {
-        AudioSource auFrom;
+        auFrom = menu;
+        auTo = game;
 
-        if (auTo == game)
+        switch (index)
         {
-            auFrom = menu;
+            case 1: //To menu
+                auFrom = menu;
+                auTo = menu;
+                break;
+            case 2: //To game
+                auFrom = menu;
+                auTo = game;
+                break;
+            case 3: //To game over screen
+                auFrom = game;
+                auTo = menu;
+                break;
         }
-        else
+
+        if (auTo != auFrom)
         {
-            auFrom = game;
+            StartCoroutine("CrossFadeFrom");
+            yield return new WaitForSeconds(timeBeforeTo);
+            StartCoroutine("CrossFadeTo");
+
         }
+        yield return null;
+    }
+    IEnumerator CrossFadeFrom()
+    {
+        AudioSource au = auFrom;
 
         float time = 0f;
         float add = vol * (crossFadeDuration / crossFadeLoops);
 
-        while (time < crossFadeDuration)
+        for (int i = 0; i < crossFadeLoops; i++)
         {
-            for (int i = 0; i < crossFadeLoops; i++)
-            {
+            au.volume -= add;
 
-                auTo.volume += add;
-                auFrom.volume -= add;
+            time += crossFadeDuration / crossFadeLoops;
+            yield return new WaitForSeconds(crossFadeDuration / crossFadeLoops);
+        }
+        au.Stop();
+    }
+    IEnumerator CrossFadeTo()
+    {
+        AudioSource au = auTo;
+        au.Play();
 
-                time += crossFadeDuration / crossFadeLoops;
-                Debug.Log(time);
-                yield return new WaitForSeconds(crossFadeDuration / crossFadeLoops);
-            }
-            yield return null;
+        float time = 0f;
+        float add = vol * (crossFadeDuration / crossFadeLoops);
+
+        for (int i = 0; i < crossFadeLoops; i++)
+        {
+            au.volume += add;
+
+            time += crossFadeDuration / crossFadeLoops;
+            yield return new WaitForSeconds(crossFadeDuration / crossFadeLoops);
         }
     }
 }

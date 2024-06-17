@@ -13,8 +13,6 @@ public class SettingsMenu : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
-
         for (int i = 0; i < volumeSliders.Count; i++)
         {
             volumeSliders[i].value = PlayerPrefs.GetFloat("Slider" + i.ToString(), 0.8f);

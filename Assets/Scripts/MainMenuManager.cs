@@ -13,6 +13,8 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(false);
 
         Screen.fullScreen = true;
+
+        mm = GameObject.Find("MusicManager").GetComponent<MusicManager>();
     }
 
     public GameObject settingsMenu;
@@ -33,14 +35,14 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public MusicManager mm;
+    MusicManager mm;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInSettings)
         {
-            SceneManager.LoadScene(1);
-            mm.SwitchMusic(1);
+            SceneManager.LoadScene(2);
+            mm.SwitchMusic(2);
         }
     }
 }
