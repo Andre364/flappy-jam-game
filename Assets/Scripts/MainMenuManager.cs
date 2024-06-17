@@ -32,12 +32,15 @@ public class MainMenuManager : MonoBehaviour
             settingsMenu.SetActive(false);
         }
     }
+
+    public MusicManager mm;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInSettings)
         {
             SceneManager.LoadScene(1);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+            mm.SwitchMusic(1);
         }
     }
 }

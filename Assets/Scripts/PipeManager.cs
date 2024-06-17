@@ -55,9 +55,9 @@ public class PipeManager : MonoBehaviour
                 currentPipes++;
                 if (currentPipes == 1)
                 {
-                    LoadNewPipe();
                     reloadSound.pitch = Random.Range(0.95f, 1.05f);
                     reloadSound.Play();
+                    LoadNewPipe();
                     yield return null;
                 }
             }

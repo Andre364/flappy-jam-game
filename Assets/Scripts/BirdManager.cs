@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BirdManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class BirdManager : MonoBehaviour
 
     public float birdDefaultSpeed;
 
+    MusicManager mm;
+
     public DataCollector dataCollector;
 
     private void Start()
@@ -21,6 +24,7 @@ public class BirdManager : MonoBehaviour
         StartCoroutine("BirdSpawner");
         health = maxHealth;
         ChangeHealthSprite();
+        mm = GameObject.Find("MusicManager").GetComponent<MusicManager>();
     }
 
     IEnumerator BirdSpawner()
@@ -65,6 +69,7 @@ public class BirdManager : MonoBehaviour
     }
 
     [Header("Health")]
+    public GameObject gameOverScreen;
     int health;
     public int maxHealth;
     public List<GameObject> hearts;
@@ -74,6 +79,12 @@ public class BirdManager : MonoBehaviour
         health--;
         Destroy(attackerBird);
         ChangeHealthSprite();
+
+        if (health <= 0)
+        {
+            gameOverScreen.SetActive(true);
+            mm.SwitchMusic(2);
+        }
     }
 
     public void AddHealth()

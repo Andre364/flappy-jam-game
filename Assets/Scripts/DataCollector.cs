@@ -7,10 +7,15 @@ public class DataCollector : MonoBehaviour
     public int timesSmashed;
     public int birdsKilled;
     public int heartsCollected;
-    public int timeAlive;
+    public float killToSmashRatio;
 
-    float seconds;
-    int minutes;
+    public float seconds;
+    public int minutes;
+
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void FixedUpdate()
     {
@@ -20,5 +25,6 @@ public class DataCollector : MonoBehaviour
             seconds = 0f;
             minutes++;
         }
+        killToSmashRatio = (float)birdsKilled / (float)timesSmashed;
     }
 }
