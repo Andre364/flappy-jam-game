@@ -9,8 +9,8 @@ public class DataCollector : MonoBehaviour
     public int heartsCollected;
     public float killToSmashRatio;
 
-    public float seconds;
-    public int minutes;
+    public float seconds = 0f;
+    public int minutes = 0;
 
     private void Start()
     {

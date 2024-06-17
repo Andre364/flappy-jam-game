@@ -29,8 +29,6 @@ public class DisplayData : MonoBehaviour
         tmp.SetText(tmp.text + "\n and killed " + dc.birdsKilled + " bird" + plural(dc.birdsKilled) + ".");
         tmp.SetText(tmp.text + "\n you collected " + dc.heartsCollected + " heart" + plural(dc.heartsCollected));
         tmp.SetText(tmp.text + "\n and each smash amounted to " + dc.killToSmashRatio + " dead birds");
-
-        Destroy(dc.gameObject);
     }
 
     string plural(int i)

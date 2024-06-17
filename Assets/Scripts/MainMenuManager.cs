@@ -15,6 +15,13 @@ public class MainMenuManager : MonoBehaviour
         isInSettings = false;
         settingsMenu.SetActive(false);
 
+        GameObject dc = GameObject.Find("DataCollector");
+
+        if (GameObject.Find("DataCollector"))
+        {
+            Destroy(dc);
+        }
+
         Invoke("canStartTrue", 4f);
 
         Screen.fullScreen = true;
@@ -50,6 +57,15 @@ public class MainMenuManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isInSettings && canStart)
+        {
+            SceneManager.LoadScene(2);
+            mm.SwitchMusic(2);
+        }
+    }
+
+    public void StartGame()
+    {
+        if (!isInSettings && canStart)
         {
             SceneManager.LoadScene(2);
             mm.SwitchMusic(2);
